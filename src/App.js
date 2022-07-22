@@ -1,4 +1,5 @@
 import "./styles.css";
+import { createEntry, updateBlog } from "./Api";
 import { createClient } from "contentful-management";
 export default function App() {
   const connect = async () => {
@@ -10,14 +11,10 @@ export default function App() {
     return (await space).getEnvironment("master");
   };
 
-  const updateBlog = async (env, id) => {
-    const blog = await env.getEntry(id);
-    blog.fields.title["en-US"] = "Next js tutorial v 1.5";
-    return blog.update();
-  };
   const client = async () => {
     const env = await connect();
-    console.log(updateBlog(env, "1zjjP0wcHInm353erc1gWp"));
+    updateBlog(env, "1zjjP0wcHInm353erc1gWp");
+    createEntry(env, "1zjjP0wcHInm353erc1gWp");
   };
   client();
   return (
