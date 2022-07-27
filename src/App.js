@@ -1,6 +1,7 @@
 import "./styles.css";
-import { createEntry, updateBlog } from "./Api";
+import { createEntry, updateBlog } from "./ApiWithPackage";
 import { createClient } from "contentful-management";
+import { postData, deleteData, getData } from "./Api";
 export default function App() {
   const connect = async () => {
     const client = await createClient({
@@ -13,8 +14,19 @@ export default function App() {
 
   const client = async () => {
     const env = await connect();
-    updateBlog(env, "1zjjP0wcHInm353erc1gWp");
-    createEntry(env, "1zjjP0wcHInm353erc1gWp");
+    // updateBlog(env, "1zjjP0wcHInm353erc1gWp");
+    // createEntry(env, "1zjjP0wcHInm353erc1gWp");
+    try {
+      // const result = await postData();
+      // const result = await deleteData();
+      const result = await getData();
+
+      const res = await result.json();
+
+      console.log(res, "re");
+    } catch (e) {
+      console.log(e, "err");
+    }
   };
   client();
   return (
